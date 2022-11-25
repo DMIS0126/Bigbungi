@@ -9,3 +9,4 @@
 *  [프리렉 - 2022 빅데이터 분석 기사 실기 필답형+작업형](https://product.kyobobook.co.kr/detail/S000001019712)
 *  [시대고시 - 파이썬 한권으로 끝내기: 데이터분석전문가(ADP) + 빅데이터분석기사 실기대비](https://product.kyobobook.co.kr/detail/S000061351837)
 *  [빅데이터 분석기사 실기 준비: 캐글 놀이터](https://www.kaggle.com/datasets/agileteam/bigdatacertificationkr)
+*  [데이터마님 - 빅데이터시험대비](https://www.datamanim.com/intro.html)
