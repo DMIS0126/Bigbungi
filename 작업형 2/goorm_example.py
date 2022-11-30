@@ -28,6 +28,7 @@ x_test = pd.DataFrame(scaler.fit_transform(x_test), columns = x_test.columns)
 from sklearn.model_selection import train_test_split
 x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size = 0.2)
 
+# 1. 랜덤포레스트
 from sklearn.ensemble import RandomForestClassifier
 model = RandomForestClassifier(max_depth = 5, n_estimators = 500, criterion = 'entropy', random_state = 10)
 
@@ -40,12 +41,52 @@ y_val_predict_proba.drop(columns = ['0'], inplace = True)
 # print(y_val_predict_proba)
 # print(y_val)
 
-from sklearn.metrics import roc_auc_score
+# from sklearn.metrics import roc_auc_score
 # print(roc_auc_score(y_val, y_val_predict_proba))
 # max_depth = 5, n_estimators = 100, criterion = 'entropy' -> score : 0.6733242706263725
 # max_depth = 5, n_estimators = 100, criterion = 'gini' -> scoer : 0.6297063592145559
 # max_depth = 7, n_estimators = 100, criterion = 'entropy' -> score : 0.6447587574355585
 # max_depth = 5, n_estimators = 500, criterion = 'entropy' -> score : 0.6762119981639068
+
+
+# # 2. 의사결정나무
+# from sklearn.tree import DecisionTreeClassifier
+# model1 = DecisionTreeClassifier(max_depth = 7, criterion = 'entropy')
+
+# model1.fit(x_train, y_train.values.ravel())
+# y_val_predict_proba = model1.predict_proba(x_val)
+# y_val_predict_proba = pd.DataFrame(y_val_predict_proba)
+# y_val_predict_proba.columns = ['0', 'gender']
+# y_val_predict_proba.drop(columns = ['0'], inplace = True)
+
+
+# from sklearn.metrics import roc_auc_score
+# print(roc_auc_score(y_val, y_val_predict_proba))
+# # max_depth = 5, criterion = 'entropy' -> score : 0.6198715865473294
+# # max_depth = 5, criterion = 'gini' -> score : 0.601432199617731
+# # max_depth = 7, criterion = 'entropy' -> score : 0.632456019791094
+
+
+# # 3. xgboost
+# from xgboost import XGBClassifier
+# model2 = XGBClassifier(n_estimators = 200, max_depth = 5)
+
+# model2.fit(x_train, y_train.values.ravel())
+# y_val_predict_proba = model2.predict_proba(x_val)
+# y_val_predict_proba = pd.DataFrame(y_val_predict_proba)
+# y_val_predict_proba.columns = ['0', 'gender']
+# y_val_predict_proba.drop(columns = ['0'], inplace = True)
+
+
+# from sklearn.metrics import roc_auc_score
+# print(roc_auc_score(y_val, y_val_predict_proba))
+# # n_estimators = 100, max_depth = 5 -> score : 0.6397392290249432
+# # n_estimators = 100, max_depth = 7 -> score : 0.6262936456300152
+# # n_estimators = 200, max_depth = 5 -> score : 0.654763986013986
+
+
+# validation 결과 RandomForestClassifier가 가장 좋은 분류기라고 판단
+
 
 y_test_predict_proba = model.predict_proba(x_test)
 y_test_predict_proba = pd.DataFrame(y_test_predict_proba)
@@ -55,3 +96,5 @@ result = pd.concat([x_test_cust_id, y_test_predict_proba], axis = 1)
 # print(result)
 
 result.to_csv('12345.csv', index = False)
+
+print(result)
